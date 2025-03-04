@@ -7,6 +7,7 @@ import SkillsSection from '@/components/SkillsSection';
 import WorkSection from '@/components/WorkSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import { ThemeProvider } from '@/contexts/ThemeContext';
 
 const navLinks = [
   { label: 'Home', href: '#top' },
@@ -48,15 +49,17 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <NavBar links={navLinks} />
-      <HeroSection />
-      <AboutSection />
-      <SkillsSection />
-      <WorkSection />
-      <ContactSection />
-      <Footer />
-    </div>
+    <ThemeProvider>
+      <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+        <NavBar links={navLinks} />
+        <HeroSection />
+        <AboutSection />
+        <SkillsSection />
+        <WorkSection />
+        <ContactSection />
+        <Footer />
+      </div>
+    </ThemeProvider>
   );
 };
 

@@ -1,6 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import ThemeToggle from './ThemeToggle';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface NavLink {
   label: string;
@@ -14,6 +16,7 @@ interface NavBarProps {
 const NavBar: React.FC<NavBarProps> = ({ links }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,26 +43,29 @@ const NavBar: React.FC<NavBarProps> = ({ links }) => {
         isVisible ? "translate-y-0" : "-translate-y-full"
       )}
     >
-      <div className="glass rounded-full py-2 px-6 flex justify-between items-center max-w-5xl mx-auto">
+      <div className={`rounded-full py-2 px-6 flex justify-between items-center max-w-5xl mx-auto ${theme === 'dark' ? 'bg-slate-900/80 backdrop-blur-md border border-slate-700' : 'glass'}`}>
         <div className="text-xl font-medium">
           <a href="#top" className="relative group">
             <span className="tracking-tight">A—H</span>
             <span className="absolute -bottom-1 left-0 w-0 h-px bg-current opacity-70 transition-all duration-300 group-hover:w-full"></span>
           </a>
         </div>
-        <ul className="hidden md:flex space-x-6 items-center">
-          {links.map((link, index) => (
-            <li key={index}>
-              <a 
-                href={link.href} 
-                className="relative text-sm py-1 group"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-current opacity-70 transition-all duration-300 group-hover:w-full"></span>
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="flex items-center space-x-6">
+          <ul className="hidden md:flex space-x-6 items-center">
+            {links.map((link, index) => (
+              <li key={index}>
+                <a 
+                  href={link.href} 
+                  className="relative text-sm py-1 group"
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-current opacity-70 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <ThemeToggle />
+        </div>
       </div>
     </nav>
   );
