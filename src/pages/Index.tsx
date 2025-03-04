@@ -8,6 +8,8 @@ import WorkSection from '@/components/WorkSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import { ThemeProvider } from '@/contexts/ThemeContext';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const navLinks = [
   { label: 'Home', href: '#top' },
@@ -18,38 +20,18 @@ const navLinks = [
 ];
 
 const Index = () => {
+  // Register ScrollTrigger plugin
   useEffect(() => {
-    // Reveal animations on scroll
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1,
-    };
-
-    const handleIntersect = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-up');
-          observer.unobserve(entry.target);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(handleIntersect, observerOptions);
+    gsap.registerPlugin(ScrollTrigger);
     
-    // Select all section headings and other elements to animate
-    document.querySelectorAll('section > div > h2').forEach((el) => {
-      el.classList.add('opacity-0');
-      observer.observe(el);
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  // Add Devicon CDN script
-  useEffect(() => {
+    // Global page transitions
+    gsap.fromTo(
+      'body', 
+      { opacity: 0 },
+      { opacity: 1, duration: 0.6, ease: 'power2.out' }
+    );
+    
+    // Add Devicon CDN script
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = 'https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css';
