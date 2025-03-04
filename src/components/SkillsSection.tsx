@@ -34,11 +34,10 @@ const SkillsSection = () => {
               </div>
               <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-primary rounded-full transition-all duration-1000 ease-out-expo origin-left"
+                  className="h-full bg-primary rounded-full transition-all duration-1000 ease-out-expo origin-left animate-[scaleIn_1.5s_ease_forwards_0.3s]"
                   style={{ 
                     width: `${skill.level}%`,
-                    transform: "scaleX(0)",
-                    animation: "scaleIn 1.5s ease forwards 0.3s"
+                    transform: "scaleX(0)"
                   }}
                 />
               </div>
@@ -46,12 +45,14 @@ const SkillsSection = () => {
           ))}
         </div>
         
-        <style jsx>{`
-          @keyframes scaleIn {
-            from { transform: scaleX(0); }
-            to { transform: scaleX(1); }
-          }
-        `}</style>
+        <style>
+          {`
+            @keyframes scaleIn {
+              from { transform: scaleX(0); }
+              to { transform: scaleX(1); }
+            }
+          `}
+        </style>
         
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="bg-white/60 backdrop-blur-sm p-6 rounded-2xl border">
