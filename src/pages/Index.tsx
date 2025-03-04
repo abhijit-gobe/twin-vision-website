@@ -48,6 +48,18 @@ const Index = () => {
     };
   }, []);
 
+  // Add Devicon CDN script
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css';
+    document.head.appendChild(link);
+
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, []);
+
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-background text-foreground overflow-x-hidden">

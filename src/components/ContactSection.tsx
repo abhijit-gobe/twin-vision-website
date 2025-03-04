@@ -137,6 +137,7 @@ const ContactSection = () => {
                   name="name" 
                   value={formData.name}
                   onChange={handleChange}
+                  placeholder="Your name"
                   required
                   className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-primary/50"
                   disabled={isSubmitting}
@@ -153,6 +154,7 @@ const ContactSection = () => {
                   name="email" 
                   value={formData.email}
                   onChange={handleChange}
+                  placeholder="your.email@example.com"
                   required
                   className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-primary/50"
                   disabled={isSubmitting}
@@ -168,6 +170,7 @@ const ContactSection = () => {
                   name="message" 
                   value={formData.message}
                   onChange={handleChange}
+                  placeholder="Tell me about your project or inquiry..."
                   rows={5}
                   required
                   className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"

@@ -4,18 +4,26 @@ import { useTheme } from '@/contexts/ThemeContext';
 
 interface Skill {
   name: string;
-  level: number;
+  icon: string;
+  color: string;
 }
 
 const skills: Skill[] = [
-  { name: "HTML & CSS", level: 95 },
-  { name: "JavaScript", level: 90 },
-  { name: "TypeScript", level: 85 },
-  { name: "React", level: 90 },
-  { name: "Next.js", level: 80 },
-  { name: "Tailwind CSS", level: 90 },
-  { name: "UI/UX Design", level: 75 },
-  { name: "Git & GitHub", level: 85 },
+  { name: "HTML", icon: "html5", color: "text-orange-500" },
+  { name: "CSS", icon: "css3", color: "text-blue-500" },
+  { name: "JavaScript", icon: "javascript", color: "text-yellow-500" },
+  { name: "TypeScript", icon: "typescript", color: "text-blue-600" },
+  { name: "React", icon: "react", color: "text-cyan-400" },
+  { name: "Next.js", icon: "nextjs", color: "text-slate-800 dark:text-white" },
+  { name: "Tailwind CSS", icon: "tailwind", color: "text-cyan-500" },
+  { name: "Git", icon: "git", color: "text-orange-600" },
+];
+
+const tools: Skill[] = [
+  { name: "VS Code", icon: "vscode", color: "text-blue-500" },
+  { name: "Figma", icon: "figma", color: "text-purple-500" },
+  { name: "GitHub", icon: "github", color: "text-slate-800 dark:text-white" },
+  { name: "Docker", icon: "docker", color: "text-blue-600" },
 ];
 
 const SkillsSection = () => {
@@ -26,36 +34,37 @@ const SkillsSection = () => {
       <div className="max-w-5xl mx-auto">
         <h2 className={`text-3xl font-medium mb-12 text-center ${theme === 'dark' ? 'text-white' : 'text-foreground'}`}>Skills & Expertise</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {skills.map((skill, index) => (
-            <div key={index} className="group">
-              <div className="flex justify-between items-center mb-2">
-                <span className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-foreground'}`}>{skill.name}</span>
-                <span className={`text-sm transition-opacity opacity-0 group-hover:opacity-100 ${theme === 'dark' ? 'text-gray-300' : 'text-muted-foreground'}`}>
-                  {skill.level}%
+        <div className="mb-16">
+          <h3 className={`text-xl font-medium mb-6 ${theme === 'dark' ? 'text-white' : 'text-foreground'}`}>Technologies</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
+            {skills.map((skill, index) => (
+              <div key={index} className="flex flex-col items-center group">
+                <div className={`w-16 h-16 flex items-center justify-center rounded-xl mb-3 ${theme === 'dark' ? 'bg-slate-800/60' : 'bg-white/80'} shadow-lg transition-transform duration-300 group-hover:scale-110`}>
+                  <i className={`devicon-${skill.icon}-plain text-4xl ${skill.color}`}></i>
+                </div>
+                <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-muted-foreground'}`}>
+                  {skill.name}
                 </span>
               </div>
-              <div className={`h-1.5 w-full rounded-full overflow-hidden ${theme === 'dark' ? 'bg-gray-700' : 'bg-secondary'}`}>
-                <div 
-                  className={`h-full rounded-full transition-all duration-1000 ease-out-expo origin-left animate-[scaleIn_1.5s_ease_forwards_0.3s] ${theme === 'dark' ? 'bg-gradient-to-r from-violet-500 to-fuchsia-500' : 'bg-gradient-to-r from-violet-400 to-fuchsia-400'}`}
-                  style={{ 
-                    width: `${skill.level}%`,
-                    transform: "scaleX(0)"
-                  }}
-                />
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
         
-        <style>
-          {`
-            @keyframes scaleIn {
-              from { transform: scaleX(0); }
-              to { transform: scaleX(1); }
-            }
-          `}
-        </style>
+        <div className="mb-16">
+          <h3 className={`text-xl font-medium mb-6 ${theme === 'dark' ? 'text-white' : 'text-foreground'}`}>Tools</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
+            {tools.map((tool, index) => (
+              <div key={index} className="flex flex-col items-center group">
+                <div className={`w-16 h-16 flex items-center justify-center rounded-xl mb-3 ${theme === 'dark' ? 'bg-slate-800/60' : 'bg-white/80'} shadow-lg transition-transform duration-300 group-hover:scale-110`}>
+                  <i className={`devicon-${tool.icon}-plain text-4xl ${tool.color}`}></i>
+                </div>
+                <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-muted-foreground'}`}>
+                  {tool.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
         
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className={`p-6 rounded-2xl border ${theme === 'dark' ? 'bg-slate-800/60 backdrop-blur-sm border-gray-700' : 'bg-white/60 backdrop-blur-sm'}`}>

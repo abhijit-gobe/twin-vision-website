@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import ThemeToggle from './ThemeToggle';
 import { useTheme } from '@/contexts/ThemeContext';
+import { Menu, X } from 'lucide-react';
 
 interface NavLink {
   label: string;
@@ -16,6 +17,7 @@ interface NavBarProps {
 const NavBar: React.FC<NavBarProps> = ({ links }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -36,6 +38,11 @@ const NavBar: React.FC<NavBarProps> = ({ links }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
+  // Close mobile menu when clicking a link
+  const handleLinkClick = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <nav 
       className={cn(
@@ -51,6 +58,7 @@ const NavBar: React.FC<NavBarProps> = ({ links }) => {
           </a>
         </div>
         <div className="flex items-center space-x-6">
+          {/* Desktop Navigation */}
           <ul className="hidden md:flex space-x-6 items-center">
             {links.map((link, index) => (
               <li key={index}>
@@ -64,9 +72,44 @@ const NavBar: React.FC<NavBarProps> = ({ links }) => {
               </li>
             ))}
           </ul>
+          
           <ThemeToggle />
+          
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden p-2 rounded-full bg-secondary/80 backdrop-blur-sm"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
       </div>
+      
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div 
+          className={`md:hidden absolute top-full left-0 right-0 mt-2 px-6 py-4 ${
+            theme === 'dark' 
+              ? 'bg-slate-900/90 backdrop-blur-md border border-slate-700' 
+              : 'bg-white/90 backdrop-blur-md border border-gray-100'
+          } rounded-xl shadow-lg transition-all duration-300 ease-in-out`}
+        >
+          <ul className="space-y-4">
+            {links.map((link, index) => (
+              <li key={index}>
+                <a 
+                  href={link.href} 
+                  className="block py-2 px-4 rounded-lg hover:bg-secondary/50 transition-colors"
+                  onClick={handleLinkClick}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </nav>
   );
 };
